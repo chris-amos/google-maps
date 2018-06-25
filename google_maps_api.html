@@ -14,17 +14,17 @@
         function initMap() {
             var mapCanvas = document.getElementById('map');
             var mapOtions = {
-                zoom: 5,
+                zoom: 20,
                 center: {
-                    lat: 29.95106579999999,
-                    lng: -90.0715323
+                    lat: 29.9681302,
+                    lng: -90.07854650000002
                 }
             };
 
             var map = new google.maps.Map(mapCanvas, mapOtions);
 
             var geo = new google.maps.Geocoder();
-            geo.geocode({address: "New Orleans, Louisiana"}, function(response, status) {
+            geo.geocode({address: "2301 Orleans Avenue, New Orleans, LA, 70119"}, function(response, status) {
                 if (status === "OK") {
                     console.log(response)
                     console.log(response[0].geometry.location.lat());
@@ -35,6 +35,23 @@
 
 
             });
+
+            // SETTING MARKER ------------------------------------
+            var dookyChase = new google.maps.Marker({
+                position: {
+                    lat: 29.9681302,
+                    lng: -90.07854650000002
+                },
+                map: map
+            });
+
+            //INFO WINDOW ------------------------------------------
+            var infoWindow = new google.maps.InfoWindow({
+                content: "<h1>This is Dooky Chase</h1>\nThey serve seafood and creole dishes!"
+            });
+
+            infoWindow.open(map, dookyChase);
+
         }
 
 
