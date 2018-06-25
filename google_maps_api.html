@@ -24,9 +24,9 @@
             var map = new google.maps.Map(mapCanvas, mapOtions);
 
             var geo = new google.maps.Geocoder();
-            geo.geocode({address: "2301 Orleans Avenue, New Orleans, LA, 70119"}, function(response, status) {
+            geo.geocode({address: "2400, 10676 Toepperwein Rd., Congress, TX 78109"}, function(response, status) {
                 if (status === "OK") {
-                    console.log(response)
+                    console.log(response);
                     console.log(response[0].geometry.location.lat());
                     console.log(response[0].geometry.location.lng());
                 }  else {
@@ -40,28 +40,31 @@
             var dookyChase = new google.maps.Marker({
                 position: {
                     lat: 29.9681302,
-                    lng: -90.07854650000002
+                    lng: -90.07854650000002,
                 },
+                animation: google.maps.Animation.DROP,
                 map: map
             });
+            dookyChase.addListener('click', toggleBounce);
+
+            function toggleBounce(){
+                if (dookyChase.getAnimation() !== null) {
+                    dookyChase.setAnimation(null);
+                } else {
+                    dookyChase.setAnimation(google.maps.Animation.BOUNCE);
+                }
+            }
 
             //INFO WINDOW ------------------------------------------
             var infoWindow = new google.maps.InfoWindow({
                 content: "<h1>This is Dooky Chase</h1>\nThey serve seafood and creole dishes!"
             });
 
-            infoWindow.open(map, dookyChase);
 
+            map.addListener('click', function(){
+                infoWindow.open(map, dookyChase);
+            });
         }
-
-
-
-
-
-
-
-
-
     </script>
 
 
